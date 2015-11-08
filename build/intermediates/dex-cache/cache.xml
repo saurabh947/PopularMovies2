@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Saurabh\.gradle\caches\modules-2\files-2.1\org.slf4j\jcl-over-slf4j\1.7.7\56003dcd0a31deea6391b9e2ef2f2dc90b205a92\jcl-over-slf4j-1.7.7.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="56003dcd0a31deea6391b9e2ef2f2dc90b205a92">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\jcl-over-slf4j-1.7.7-66723a90368b021c5d91ebeaee36dcbd7222004d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3f151e49c316a5ab2c065969a3b3b55ef9b393fc">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\classes-28c7000ddc60388a99f4d5cfa283ad582970e2f1.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\exploded-aar\com.android.support\design\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="19026d31f5d3ae868db81319671a642be5fbba08">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\classes-c5b4ad99bd6cf057d74da9a575de83efd0a1fcc3.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.4.4\d3dad1a494f94579fca4b6a1142fb15fb68f0b2f\jackson-annotations-2.4.4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d3dad1a494f94579fca4b6a1142fb15fb68f0b2f">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\jackson-annotations-2.4.4-d7f87ab26bd3a0842fea89e6abdfe8682b774fd9.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\classes-2c6a9543518350feb7bed673067ca57e530bf050.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\1.7.7\2b8019b6249bb05d81d3a3094e468753e2b21311\slf4j-api-1.7.7.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2b8019b6249bb05d81d3a3094e468753e2b21311">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\slf4j-api-1.7.7-c0fb6aa584213ca131f793be7cbbaf22d87d09d0.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.4.4\c5cd3347c0a86d0dcfbf3da593d8431d5a789d54\jackson-core-2.4.4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c5cd3347c0a86d0dcfbf3da593d8431d5a789d54">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\jackson-core-2.4.4-2fe065e3a1a6cca7bd6e04588194502ac2bca9de.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\classes-783c5ef2768fa53f909a941db5d5e7cbe01dcf8d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-aacd347036fcfa0f65d5bb24f06526ef2f25b32e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\18.0\cce0823396aa693798f8882e64213b1772032b09\guava-18.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\guava-18.0-5474bf113bed976b3bc1f020bfa163860000d352.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\.gradle\caches\modules-2\files-2.1\info.movito\themoviedbapi\1.2\f02d62ebcfbaeaf2574b1d48183081203fd9be44\themoviedbapi-1.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f02d62ebcfbaeaf2574b1d48183081203fd9be44">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\themoviedbapi-1.2-9e73b67106c1244bf2e32bb718df523013051b18.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.10\4b95f4897fa13f2cd904aee711aeafc0c5295cd8\commons-codec-1.10.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4b95f4897fa13f2cd904aee711aeafc0c5295cd8">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\commons-codec-1.10-ca7632b4470bc936416addad74de28bfea081f68.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.4.4\e2ff13c3de2f5a2ab2449a3dace2b0d1c37bd8ee\jackson-databind-2.4.4.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e2ff13c3de2f5a2ab2449a3dace2b0d1c37bd8ee">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\jackson-databind-2.4.4-dee8cd148ed58be77df999722e3e7d4a756dbb89.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.3.2\90a3822c38ec8c996e84c16a3477ef632cbc87a3\commons-lang3-3.3.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="90a3822c38ec8c996e84c16a3477ef632cbc87a3">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\commons-lang3-3.3.2-958cbd1730d3fd97613344c8cf4bf6b8fd35e03e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-6f81b80ef13459863c5d2c56c2933af501fb6b03.jar" />
+    </item>
+    <item
+        jar="E:\Android\SDK\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="C:\Users\Saurabh\Documents\AndroidStudioProjects\PopularMovies2\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-db54dd26fc0e27d7eba84d1a8747e9d6ca53fa4d.jar" />
+    </item>
+
+</items>
