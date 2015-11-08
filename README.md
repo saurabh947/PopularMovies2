@@ -1,6 +1,6 @@
 # Android Developer NanoDegree
 
-## Project 1 - Popular Movies Stage 1
+## Project 1 - Popular Movies Stage 1 & 2
 
 This is an Android Application developed by me (Saurabh Agrawal), as an 
 academic requirement for the Udacity's Android Developer NanoDegree Program.
