@@ -7,24 +7,25 @@ package com.saurabh.popularmovies2.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.saurabh.popularmovies2.R;
 import com.saurabh.popularmovies2.constants.Constants;
-import com.saurabh.popularmovies2.data.DataFetcher;
-import com.saurabh.popularmovies2.ui.helpers.DataFetcherListener;
-import com.saurabh.popularmovies2.ui.helpers.GridAdapter;
+import com.saurabh.popularmovies2.data.MoviesListFetcher;
+import com.saurabh.popularmovies2.ui.adapters.MoviesGridAdapter;
+import com.saurabh.popularmovies2.ui.listeners.MoviesListFetcherListener;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import info.movito.themoviedbapi.model.MovieDb;
 
 /**
@@ -33,22 +34,19 @@ import info.movito.themoviedbapi.model.MovieDb;
  * <p/>
  * The menu overflow icon can be used to change the sort order of the movies.
  */
-public class MovieGridActivity extends AppCompatActivity implements DataFetcherListener {
+public class MovieGridActivity extends AppCompatActivity implements MoviesListFetcherListener {
+    public static final String TAG = MovieGridActivity.class.getSimpleName();
 
-    private ProgressBar mProgressBar;
-    private GridView mGridView;
+    @Bind(R.id.progress_bar) ProgressBar progressBar;
+    @Bind(R.id.movie_grid) RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_grid);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        mProgressBar.setVisibility(View.VISIBLE);
-
-        mGridView = (GridView) findViewById(R.id.movie_grid);
+        ButterKnife.bind(this);
+        progressBar.setVisibility(View.VISIBLE);
 
         populateGrid(Constants.SORT_POPULARITY);
     }
@@ -64,12 +62,12 @@ public class MovieGridActivity extends AppCompatActivity implements DataFetcherL
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_popularity:
-                mProgressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 populateGrid(Constants.SORT_POPULARITY);
                 return true;
 
             case R.id.menu_rating:
-                mProgressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 populateGrid(Constants.SORT_RATING);
                 return true;
         }
@@ -82,8 +80,8 @@ public class MovieGridActivity extends AppCompatActivity implements DataFetcherL
      * @param sortCriteria The sort criteria
      */
     public void populateGrid(String sortCriteria) {
-        DataFetcher dataFetcher = new DataFetcher(this);
-        dataFetcher.execute(sortCriteria);
+        MoviesListFetcher moviesListFetcher = new MoviesListFetcher(this);
+        moviesListFetcher.execute(sortCriteria);
     }
 
     /**
@@ -94,24 +92,27 @@ public class MovieGridActivity extends AppCompatActivity implements DataFetcherL
     @Override
     public void onTaskCompleted(final List<MovieDb> movies) {
         if (movies == null) {
-            mProgressBar.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
             Toast.makeText(this, R.string.error_movies, Toast.LENGTH_LONG).show();
             return;
         }
 
-        mProgressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
         Toast.makeText(this, R.string.toast_success, Toast.LENGTH_SHORT).show();
 
-        GridAdapter adapter = new GridAdapter(this, movies);
-        mGridView.setAdapter(adapter);
+        MoviesGridAdapter adapter = new MoviesGridAdapter(this, movies);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
 
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapter.setOnItemClickListener(new MoviesGridAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(View view, int position) {
                 Intent intent = new Intent(MovieGridActivity.this, MovieDetailsActivity.class);
-                intent.putExtra("selectedMovie", movies.get(position));
+                intent.putExtra("selectedMovieId", movies.get(position).getId());
                 startActivity(intent);
             }
         });
+        recyclerView.setAdapter(adapter);
     }
 }

@@ -6,7 +6,7 @@
     <string name="poster_description">Movie Poster</string>
     <string name="thumbnail_description">Movie Thumbnail</string>
     <string name="movie_name">Movie Name</string>
-    <string name="synopsis">Plot:</string>
+    <string name="synopsis">Plot</string>
     <string name="placeholder_release_date">January 1, 1970</string>
     <string name="placeholder_rating">9.5</string>
     <string name="movie_adult_icon">Movie Adult Icon</string>

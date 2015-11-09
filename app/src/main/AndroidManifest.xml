@@ -15,8 +15,7 @@
 
         <activity
             android:name="com.saurabh.popularmovies2.ui.activities.MovieGridActivity"
-            android:label="@string/title_activity_movie_grid"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_movie_grid">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
