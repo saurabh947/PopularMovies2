@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.saurabh.popularmovies2.constants.Keys;
-import com.saurabh.popularmovies2.ui.listeners.MovieFetcherListener;
 
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.MovieDb;
@@ -36,6 +35,17 @@ public class MovieFetcher extends AsyncTask<Integer, Void, MovieDb>{
      */
     @Override
     protected void onPostExecute(MovieDb movie) {
-        mMovieFetcherListener.onMovieResponseReceived(movie);
+        mMovieFetcherListener.onMovieResponse(movie);
+    }
+
+    /**
+     * The interface used for returning the the selected movie from the AsyncTask
+     */
+    public interface MovieFetcherListener {
+
+        /**
+         * Called when the AsyncTask is finished executing
+         */
+        void onMovieResponse(MovieDb response);
     }
 }

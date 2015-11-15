@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.saurabh.popularmovies2.constants.Keys;
-import com.saurabh.popularmovies2.ui.listeners.ReviewsFetcherListener;
 
 import java.util.List;
 
@@ -40,6 +39,17 @@ public class ReviewsFetcher extends AsyncTask<Integer, Void, List<Reviews>> {
      */
     @Override
     protected void onPostExecute(List<Reviews> reviews) {
-        mReviewsFetcherListener.onReviewResponseReceived(reviews);
+        mReviewsFetcherListener.onReviewResponse(reviews);
+    }
+
+    /**
+     * The interface used for returning the the selected movie from the AsyncTask
+     */
+    public interface ReviewsFetcherListener {
+
+        /**
+         * Called when the AsyncTask is finished executing
+         */
+        void onReviewResponse(List<Reviews> response);
     }
 }

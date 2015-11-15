@@ -5,6 +5,7 @@
 package com.saurabh.popularmovies2.ui.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,39 +36,21 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Vi
         mMovieDbs = movies;
     }
 
-    /**
-     * ViewHolder for storing the view references
-     */
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.grid_movie_poster) ImageView movie_poster;
-
-        public ViewHolder(View view) {
-            super(view);
-            view.setOnClickListener(this);
-            ButterKnife.bind(this, view);
-        }
-
-        @Override
-        public void onClick(View v) {
-            mListener.onItemClick(v, getAdapterPosition());
-        }
-    }
-
     @Override
     public MoviesGridAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_grid_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.movie_grid_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        viewHolder.movie_poster.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        viewHolder.moviePoster.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Picasso.with(mContext)
-                .load(Constants.THUMBNAIL_URL + mMovieDbs.get(position).getPosterPath())
+                .load(Uri.withAppendedPath(Constants.THUMBNAIL_URL, mMovieDbs.get(position).getPosterPath()))
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_error)
                 .fit().centerCrop()
-                .into(viewHolder.movie_poster);
+                .into(viewHolder.moviePoster);
     }
 
     @Override
@@ -81,5 +64,24 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Vi
 
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
+    }
+
+    /**
+     * ViewHolder for storing the view references
+     */
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @Bind(R.id.grid_movie_poster)
+        ImageView moviePoster;
+
+        public ViewHolder(View view) {
+            super(view);
+            view.setOnClickListener(this);
+            ButterKnife.bind(this, view);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mListener.onItemClick(view, getAdapterPosition());
+        }
     }
 }

@@ -24,7 +24,7 @@
 
         <activity
             android:name="com.saurabh.popularmovies2.ui.activities.MovieDetailsActivity"
-            android:label="@string/title_activity_movie_grid"/>
+            android:parentActivityName=".ui.activities.MovieGridActivity"/>
 
     </application>
 </manifest>

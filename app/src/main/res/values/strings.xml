@@ -12,10 +12,12 @@
     <string name="movie_adult_icon">Movie Adult Icon</string>
     <string name="menu_popularity">Sort by Popularity</string>
     <string name="menu_rating">Sort by Rating</string>
+    <string name="review_author">Review Author</string>
+    <string name="review_text">Review Text</string>
+    <string name="view_full_review">View Full Review...</string>
 
     <string name="toast_success">Success!</string>
-    <string name="error_movies">Error: Could not retrieve the movies.</string>
+    <string name="error">Error: Please try again later.</string>
     <string name="error_overview">No Overview Found.</string>
     <string name="error_release_date">N/A</string>
-    <string name="error_null">null</string>
 </resources>

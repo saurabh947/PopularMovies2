@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/grid_movie_poster"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="300dp"
         android:background="@android:color/darker_gray"
         android:contentDescription="@string/movie_thumbnail"/>
 </LinearLayout>

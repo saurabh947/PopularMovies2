@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.saurabh.popularmovies2.constants.Keys;
-import com.saurabh.popularmovies2.ui.listeners.MoviesListFetcherListener;
 
 import java.util.List;
 
@@ -58,6 +57,17 @@ public class MoviesListFetcher extends AsyncTask<String, Void, List<MovieDb>> {
      */
     @Override
     protected void onPostExecute(List<MovieDb> movies) {
-        moviesListFetcherListener.onTaskCompleted(movies);
+        moviesListFetcherListener.onMovieListResponse(movies);
+    }
+
+    /**
+     * The interface used for returning the list of movies from the AsyncTask
+     */
+    public interface MoviesListFetcherListener {
+
+        /**
+         * Called when the AsyncTask is finished executing
+         */
+        void onMovieListResponse(List<MovieDb> response);
     }
 }

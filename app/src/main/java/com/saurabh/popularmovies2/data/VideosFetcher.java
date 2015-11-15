@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.saurabh.popularmovies2.constants.Keys;
-import com.saurabh.popularmovies2.ui.listeners.VideosFetcherListener;
 
 import java.util.List;
 
@@ -38,6 +37,17 @@ public class VideosFetcher extends AsyncTask<Integer, Void, List<Video>> {
      */
     @Override
     protected void onPostExecute(List<Video> reviews) {
-        mVideosFetcherListener.onVideoResponseReceived(reviews);
+        mVideosFetcherListener.onVideoResponse(reviews);
+    }
+
+    /**
+     * The interface used for returning the the selected movie from the AsyncTask
+     */
+    public interface VideosFetcherListener {
+
+        /**
+         * Called when the AsyncTask is finished executing
+         */
+        void onVideoResponse(List<Video> response);
     }
 }

@@ -20,7 +20,6 @@ import com.saurabh.popularmovies2.R;
 import com.saurabh.popularmovies2.constants.Constants;
 import com.saurabh.popularmovies2.data.MoviesListFetcher;
 import com.saurabh.popularmovies2.ui.adapters.MoviesGridAdapter;
-import com.saurabh.popularmovies2.ui.listeners.MoviesListFetcherListener;
 
 import java.util.List;
 
@@ -34,11 +33,10 @@ import info.movito.themoviedbapi.model.MovieDb;
  * <p/>
  * The menu overflow icon can be used to change the sort order of the movies.
  */
-public class MovieGridActivity extends AppCompatActivity implements MoviesListFetcherListener {
-    public static final String TAG = MovieGridActivity.class.getSimpleName();
-
+public class MovieGridActivity extends AppCompatActivity implements MoviesListFetcher.MoviesListFetcherListener {
     @Bind(R.id.progress_bar) ProgressBar progressBar;
-    @Bind(R.id.movie_grid) RecyclerView recyclerView;
+    @Bind(R.id.movie_grid)
+    RecyclerView movieGrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +88,10 @@ public class MovieGridActivity extends AppCompatActivity implements MoviesListFe
      * @param movies The List of MovieDb objects.
      */
     @Override
-    public void onTaskCompleted(final List<MovieDb> movies) {
+    public void onMovieListResponse(final List<MovieDb> movies) {
         if (movies == null) {
             progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(this, R.string.error_movies, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -102,8 +100,8 @@ public class MovieGridActivity extends AppCompatActivity implements MoviesListFe
 
         MoviesGridAdapter adapter = new MoviesGridAdapter(this, movies);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+        movieGrid.setLayoutManager(layoutManager);
+        movieGrid.setHasFixedSize(true);
 
         adapter.setOnItemClickListener(new MoviesGridAdapter.OnItemClickListener() {
             @Override
@@ -113,6 +111,6 @@ public class MovieGridActivity extends AppCompatActivity implements MoviesListFe
                 startActivity(intent);
             }
         });
-        recyclerView.setAdapter(adapter);
+        movieGrid.setAdapter(adapter);
     }
 }
