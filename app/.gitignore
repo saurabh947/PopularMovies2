@@ -1,8 +1,8 @@
-.gradle
+/.gradle
 local.properties
-.idea
+/.idea/workspace.xml
 .DS_Store
-build
+/build
 /captures
-src/main/java/com/saurabh/popularmovies/constants/Keys.java
+app/src/main/java/com/saurabh/popularmovies/constants/Keys.java
 Thumbs.db
