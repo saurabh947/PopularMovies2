@@ -4,8 +4,10 @@
 
 package com.saurabh.popularmovies2.ui.activities;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -25,9 +28,10 @@ import android.widget.Toast;
 
 import com.saurabh.popularmovies2.R;
 import com.saurabh.popularmovies2.constants.Constants;
-import com.saurabh.popularmovies2.data.MovieFetcher;
-import com.saurabh.popularmovies2.data.ReviewsFetcher;
-import com.saurabh.popularmovies2.data.VideosFetcher;
+import com.saurabh.popularmovies2.data.network.MovieFetcher;
+import com.saurabh.popularmovies2.data.network.ReviewsFetcher;
+import com.saurabh.popularmovies2.data.network.VideosFetcher;
+import com.saurabh.popularmovies2.data.provider.ProviderDbHelper;
 import com.saurabh.popularmovies2.ui.adapters.MovieReviewsAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -48,6 +52,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
     @Bind(R.id.movie_poster) ImageView moviePoster;
     @Bind(R.id.movie_thumbnail) ImageView movieThumbnail;
     @Bind(R.id.movie_name) TextView movieName;
+    @Bind(R.id.movie_favourite_icon)
+    ImageButton movieFavorite;
     @Bind(R.id.movie_release_date) TextView movieReleaseDate;
     @Bind(R.id.movie_rating) TextView movieRating;
     @Bind(R.id.movie_runtime) TextView movieRuntime;
@@ -58,7 +64,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
     @Bind(R.id.movie_reviews_progress) ProgressBar movieReviewsProgressBar;
     @Bind(R.id.movie_reviews_list)
     RecyclerView movieReviewsList;
+
     private ActionBar mActionBar;
+    private int mMovieId;
+    private boolean mIsMovieAFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,19 +77,20 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
         mActionBar.setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.bind(this);
-        int movieId = getIntent().getIntExtra("selectedMovieId", 0);
-        setMovieData(movieId);
+        mMovieId = getIntent().getIntExtra("selectedMovieId", 0);
+        setMovieData();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("movieId", getIntent().getIntExtra("selectedMovieId", 0));
+        outState.putInt("movieId", mMovieId);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        setMovieData(savedInstanceState.getInt("movieId"));
+        mMovieId = savedInstanceState.getInt("movieId");
+        setMovieData();
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -97,23 +107,20 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
     /**
      * Sets the movie data to the views.
      */
-    public void setMovieData(int movieId) {
-        if (movieId != 0) {
+    private void setMovieData() {
+        if (mMovieId != 0) {
             MovieFetcher movieFetcher = new MovieFetcher(this);
-            movieFetcher.execute(movieId);
+            movieFetcher.execute(mMovieId);
 
-            ReviewsFetcher reviewsFetcher = new ReviewsFetcher(this);
-            reviewsFetcher.execute(movieId);
-
-            VideosFetcher videosFetcher = new VideosFetcher(this);
-            videosFetcher.execute(movieId);
         } else {
             Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
         }
     }
 
+    // region Listener Implementations
+
     @Override
-    public void onMovieResponse(MovieDb response) {
+    public void onMovieResponse(final MovieDb response) {
         if (response != null) {
             mActionBar.setTitle(response.getOriginalTitle());
 
@@ -131,6 +138,22 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
                     .into(movieThumbnail);
 
             movieName.setText(response.getOriginalTitle());
+
+            getMovieFromDb(response);
+            movieFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (view.isSelected()) {
+                        view.setSelected(false);
+                        mIsMovieAFavorite = false;
+                    } else {
+                        view.setSelected(true);
+                        mIsMovieAFavorite = true;
+                    }
+                    updateMovieInDb();
+                }
+            });
+
             if (response.getReleaseDate() == null) {
                 movieReleaseDate.setText(R.string.error_release_date);
             } else {
@@ -151,6 +174,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
         } else {
             Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
         }
+
+        VideosFetcher videosFetcher = new VideosFetcher(this);
+        videosFetcher.execute(mMovieId);
     }
 
     @Override
@@ -186,6 +212,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
         } else {
             Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
         }
+
+        ReviewsFetcher reviewsFetcher = new ReviewsFetcher(this);
+        reviewsFetcher.execute(mMovieId);
     }
 
     @Override
@@ -205,4 +234,50 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
             Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
         }
     }
+    // endregion
+
+    // region DB operations
+
+    private void getMovieFromDb(MovieDb movie) {
+        String selection = "movie_id = ?";
+        String[] selectionArgs = {String.valueOf(mMovieId)};
+
+        Cursor cursor = getContentResolver()
+                .query(ProviderDbHelper.CONTENT_URI,
+                        null,
+                        selection,
+                        selectionArgs,
+                        null);
+        if (cursor != null && cursor.getCount() == 0) {
+            insertMovieInDb(movie);
+            cursor.close();
+
+        } else if (cursor != null && cursor.getCount() == 1) {
+            cursor.moveToFirst();
+            boolean selected = Boolean.parseBoolean(cursor.getString(
+                    cursor.getColumnIndex(ProviderDbHelper.COLUMN_IS_FAVORITE)));
+            mIsMovieAFavorite = selected;
+            movieFavorite.setSelected(selected);
+            cursor.close();
+        }
+    }
+
+    private void updateMovieInDb() {
+        String selection = "movie_id = ?";
+        String[] selectionArgs = {String.valueOf(mMovieId)};
+
+        ContentValues values = new ContentValues();
+        values.put(ProviderDbHelper.COLUMN_IS_FAVORITE, String.valueOf(mIsMovieAFavorite));
+
+        getContentResolver().update(ProviderDbHelper.CONTENT_URI, values, selection, selectionArgs);
+    }
+
+    private void insertMovieInDb(MovieDb movie) {
+        ContentValues values = new ContentValues();
+        values.put(ProviderDbHelper.COLUMN_MOVIE_ID, movie.getId());
+        values.put(ProviderDbHelper.COLUMN_MOVIE_NAME, movie.getOriginalTitle());
+
+        getContentResolver().insert(ProviderDbHelper.CONTENT_URI, values);
+    }
+    // endregion
 }

@@ -16,10 +16,12 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
 import com.saurabh.popularmovies2.R;
 import com.saurabh.popularmovies2.constants.Constants;
-import com.saurabh.popularmovies2.data.MoviesListFetcher;
+import com.saurabh.popularmovies2.data.network.MoviesListFetcher;
 import com.saurabh.popularmovies2.ui.adapters.MoviesGridAdapter;
+import com.saurabh.popularmovies2.ui.dialogs.SortDialog;
 
 import java.util.List;
 
@@ -33,7 +35,8 @@ import info.movito.themoviedbapi.model.MovieDb;
  * <p/>
  * The menu overflow icon can be used to change the sort order of the movies.
  */
-public class MovieGridActivity extends AppCompatActivity implements MoviesListFetcher.MoviesListFetcherListener {
+public class MovieGridActivity extends AppCompatActivity implements MoviesListFetcher.MoviesListFetcherListener,
+        SortDialog.SortDialogListener {
     @Bind(R.id.progress_bar) ProgressBar progressBar;
     @Bind(R.id.movie_grid)
     RecyclerView movieGrid;
@@ -42,6 +45,7 @@ public class MovieGridActivity extends AppCompatActivity implements MoviesListFe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_grid);
+        initializeStetho();
 
         ButterKnife.bind(this);
         progressBar.setVisibility(View.VISIBLE);
@@ -59,14 +63,13 @@ public class MovieGridActivity extends AppCompatActivity implements MoviesListFe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_popularity:
-                progressBar.setVisibility(View.VISIBLE);
-                populateGrid(Constants.SORT_POPULARITY);
+            case R.id.menu_sort:
+                SortDialog dialog = new SortDialog();
+                dialog.show(getFragmentManager(), SortDialog.TAG);
                 return true;
 
-            case R.id.menu_rating:
-                progressBar.setVisibility(View.VISIBLE);
-                populateGrid(Constants.SORT_RATING);
+            case R.id.menu_favorite:
+                populateGrid(true);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -77,15 +80,32 @@ public class MovieGridActivity extends AppCompatActivity implements MoviesListFe
      *
      * @param sortCriteria The sort criteria
      */
-    public void populateGrid(String sortCriteria) {
+    private void populateGrid(String sortCriteria) {
         MoviesListFetcher moviesListFetcher = new MoviesListFetcher(this);
         moviesListFetcher.execute(sortCriteria);
     }
 
+    private void populateGrid(boolean showFavorites) {
+        // TODO: Show user's favorites
+    }
+
+    private void initializeStetho() {
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build());
+    }
+
+    private void showMovieDetailsScreen(int movieId) {
+        Intent intent = new Intent(MovieGridActivity.this, MovieDetailsActivity.class);
+        intent.putExtra("selectedMovieId", movieId);
+        startActivity(intent);
+    }
+
     /**
-     * Called when the AsyncTask finishes execution and returns results.
+     * Called when the AsyncTask finishes execution and returns list of movies.
      *
-     * @param movies The List of MovieDb objects.
+     * @param movies The List of MovieSqlDb objects.
      */
     @Override
     public void onMovieListResponse(final List<MovieDb> movies) {
@@ -106,11 +126,20 @@ public class MovieGridActivity extends AppCompatActivity implements MoviesListFe
         adapter.setOnItemClickListener(new MoviesGridAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(MovieGridActivity.this, MovieDetailsActivity.class);
-                intent.putExtra("selectedMovieId", movies.get(position).getId());
-                startActivity(intent);
+                showMovieDetailsScreen(movies.get(position).getId());
             }
         });
         movieGrid.setAdapter(adapter);
+    }
+
+    /**
+     * Called when the user selects an item from the sort dialog fragment.
+     *
+     * @param sortCriteria the criteria to sort with.
+     */
+    @Override
+    public void onSortCriteriaClicked(String sortCriteria) {
+        progressBar.setVisibility(View.VISIBLE);
+        populateGrid(sortCriteria);
     }
 }

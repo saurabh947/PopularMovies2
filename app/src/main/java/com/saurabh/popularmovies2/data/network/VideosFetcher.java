@@ -1,4 +1,4 @@
-package com.saurabh.popularmovies2.data;
+package com.saurabh.popularmovies2.data.network;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -11,7 +11,7 @@ import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.Video;
 
 public class VideosFetcher extends AsyncTask<Integer, Void, List<Video>> {
-    public static final String TAG = ReviewsFetcher.class.getSimpleName();
+    public static final String TAG = VideosFetcher.class.getSimpleName();
 
     private VideosFetcherListener mVideosFetcherListener;
 

@@ -26,5 +26,10 @@
             android:name="com.saurabh.popularmovies2.ui.activities.MovieDetailsActivity"
             android:parentActivityName=".ui.activities.MovieGridActivity"/>
 
+        <provider
+            android:name=".data.provider.MovieProvider"
+            android:authorities="com.saurabh.popularmovies.app">
+        </provider>
+
     </application>
 </manifest>

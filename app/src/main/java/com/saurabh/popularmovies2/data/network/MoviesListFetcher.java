@@ -2,7 +2,7 @@
  * Copyright (C) 2015 Saurabh Agrawal
  */
 
-package com.saurabh.popularmovies2.data;
+package com.saurabh.popularmovies2.data.network;
 
 import android.os.AsyncTask;
 import android.util.Log;
