@@ -8,11 +8,16 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -34,6 +39,7 @@ import com.saurabh.popularmovies2.data.network.VideosFetcher;
 import com.saurabh.popularmovies2.data.provider.ProviderSqlHelper;
 import com.saurabh.popularmovies2.ui.adapters.MovieReviewsAdapter;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +72,38 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
     RecyclerView movieReviewsList;
 
     private ActionBar mActionBar;
+    /**
+     * Fires the Palette class after loading the image from
+     * the network.
+     */
+    Target target = new Target() {
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            moviePoster.setImageBitmap(bitmap);
+
+            /**
+             * Sets the actionbar and status bar colors by getting the muted colors from
+             * the movie poster.
+             * If not found, sets them to default colors.
+             */
+            Palette palette = Palette.from(bitmap).generate();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(palette.getDarkMutedColor(
+                        getResources().getColor(R.color.colorPrimaryDark)));
+            }
+            mActionBar.setBackgroundDrawable(new ColorDrawable(palette.getMutedColor(
+                    getResources().getColor(R.color.colorPrimary))));
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+            moviePoster.setImageDrawable(errorDrawable);
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+        }
+    };
     private int mMovieId;
     private boolean mIsMovieAFavorite;
 
@@ -132,11 +170,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
             mActionBar.setTitle(response.getOriginalTitle());
 
             Picasso.with(this)
-                    .load(Uri.withAppendedPath(Constants.POSTER_URL, response.getPosterPath()))
+                    .load(Uri.withAppendedPath(Constants.POSTER_URL, response.getBackdropPath()))
                     .placeholder(R.drawable.ic_placeholder)
                     .error(R.drawable.ic_error)
-                    .fit().centerCrop()
-                    .into(moviePoster);
+                    .into(target);
             Picasso.with(this)
                     .load(Uri.withAppendedPath(Constants.THUMBNAIL_URL, response.getPosterPath()))
                     .placeholder(R.drawable.ic_placeholder)
