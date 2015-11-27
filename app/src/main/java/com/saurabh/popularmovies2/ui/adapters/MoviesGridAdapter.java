@@ -23,7 +23,8 @@ import butterknife.ButterKnife;
 import info.movito.themoviedbapi.model.MovieDb;
 
 /**
- * The Adapter for displaying the GridView in MovieGridActivity
+ * An Adapter responsible for managing the {@link MovieDb} and
+ * displaying it in {@link com.saurabh.popularmovies2.ui.activities.MovieGridActivity}.
  */
 public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.ViewHolder> {
 

@@ -31,7 +31,7 @@ import com.saurabh.popularmovies2.constants.Constants;
 import com.saurabh.popularmovies2.data.network.MovieFetcher;
 import com.saurabh.popularmovies2.data.network.ReviewsFetcher;
 import com.saurabh.popularmovies2.data.network.VideosFetcher;
-import com.saurabh.popularmovies2.data.provider.ProviderDbHelper;
+import com.saurabh.popularmovies2.data.provider.ProviderSqlHelper;
 import com.saurabh.popularmovies2.ui.adapters.MovieReviewsAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -45,7 +45,7 @@ import info.movito.themoviedbapi.model.Reviews;
 import info.movito.themoviedbapi.model.Video;
 
 /**
- * Displays all the details of the clicked grid item in a new Activity.
+ * Displays all the details of the clicked grid item (Movie) in a new Activity.
  */
 public class MovieDetailsActivity extends AppCompatActivity implements MovieFetcher.MovieFetcherListener,
         ReviewsFetcher.ReviewsFetcherListener, VideosFetcher.VideosFetcherListener {
@@ -74,7 +74,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
         mActionBar = getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
+        if (mActionBar != null) {
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         ButterKnife.bind(this);
         mMovieId = getIntent().getIntExtra("selectedMovieId", 0);
@@ -119,6 +121,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
 
     // region Listener Implementations
 
+    /**
+     * Called when the app receives all the movie information and displays it.
+     *
+     * @param response The {@link MovieDb} object
+     */
     @Override
     public void onMovieResponse(final MovieDb response) {
         if (response != null) {
@@ -160,9 +167,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
                 movieReleaseDate.setText(response.getReleaseDate());
             }
 
-            if (response.isAdult()) {
-                movieAdultIcon.setVisibility(View.VISIBLE);
-            }
+            movieAdultIcon.setVisibility(response.isAdult() ? View.VISIBLE : View.INVISIBLE);
 
             movieRating.setText(String.valueOf(response.getVoteAverage()));
             movieRuntime.setText(String.valueOf(response.getRuntime()) + " min");
@@ -179,6 +184,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
         videosFetcher.execute(mMovieId);
     }
 
+    /**
+     * Called when the app receives all the movie videos and displays it.
+     *
+     * @param response The {@link Video} object
+     */
     @Override
     public void onVideoResponse(final List<Video> response) {
         movieTrailerProgressBar.setVisibility(View.INVISIBLE);
@@ -217,6 +227,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
         reviewsFetcher.execute(mMovieId);
     }
 
+    /**
+     * Called when the app receives all the movie reviews and displays it.
+     *
+     * @param response The {@link Reviews} object
+     */
     @Override
     public void onReviewResponse(List<Reviews> response) {
         movieReviewsProgressBar.setVisibility(View.INVISIBLE);
@@ -227,23 +242,29 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
             movieReviewsList.setLayoutManager(layoutManager);
             movieReviewsList.setHasFixedSize(true);
 
-            movieReviewsList.getLayoutParams().height = 240 * response.size();
+            movieReviewsList.getLayoutParams().height = 460 * response.size();
 
             movieReviewsList.setAdapter(adapter);
         } else {
             Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
         }
     }
+
     // endregion
 
     // region DB operations
 
+    /**
+     * Get the movie record from the database; insert it if not present.
+     *
+     * @param movie The {@link MovieDb} object.
+     */
     private void getMovieFromDb(MovieDb movie) {
         String selection = "movie_id = ?";
         String[] selectionArgs = {String.valueOf(mMovieId)};
 
         Cursor cursor = getContentResolver()
-                .query(ProviderDbHelper.CONTENT_URI,
+                .query(ProviderSqlHelper.CONTENT_URI,
                         null,
                         selection,
                         selectionArgs,
@@ -255,29 +276,38 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieFetc
         } else if (cursor != null && cursor.getCount() == 1) {
             cursor.moveToFirst();
             boolean selected = Boolean.parseBoolean(cursor.getString(
-                    cursor.getColumnIndex(ProviderDbHelper.COLUMN_IS_FAVORITE)));
+                    cursor.getColumnIndex(ProviderSqlHelper.COLUMN_IS_FAVORITE)));
             mIsMovieAFavorite = selected;
             movieFavorite.setSelected(selected);
             cursor.close();
         }
     }
 
+    /**
+     * Update the movie record in the database.
+     */
     private void updateMovieInDb() {
         String selection = "movie_id = ?";
         String[] selectionArgs = {String.valueOf(mMovieId)};
 
         ContentValues values = new ContentValues();
-        values.put(ProviderDbHelper.COLUMN_IS_FAVORITE, String.valueOf(mIsMovieAFavorite));
+        values.put(ProviderSqlHelper.COLUMN_IS_FAVORITE, String.valueOf(mIsMovieAFavorite));
 
-        getContentResolver().update(ProviderDbHelper.CONTENT_URI, values, selection, selectionArgs);
+        getContentResolver().update(ProviderSqlHelper.CONTENT_URI, values, selection, selectionArgs);
     }
 
+    /**
+     * Insert the movie record in the database.
+     *
+     * @param movie The {@link MovieDb} object.
+     */
     private void insertMovieInDb(MovieDb movie) {
         ContentValues values = new ContentValues();
-        values.put(ProviderDbHelper.COLUMN_MOVIE_ID, movie.getId());
-        values.put(ProviderDbHelper.COLUMN_MOVIE_NAME, movie.getOriginalTitle());
+        values.put(ProviderSqlHelper.COLUMN_MOVIE_ID, movie.getId());
+        values.put(ProviderSqlHelper.COLUMN_MOVIE_NAME, movie.getOriginalTitle());
 
-        getContentResolver().insert(ProviderDbHelper.CONTENT_URI, values);
+        getContentResolver().insert(ProviderSqlHelper.CONTENT_URI, values);
     }
+
     // endregion
 }

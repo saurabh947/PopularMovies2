@@ -1,7 +1,11 @@
 <resources>
+    <!-- Title -->
     <string name="app_name">PopularMovies</string>
-    <string name="title_activity_movie_grid">Popular Movies</string>
+    <string name="title_popular_movies">Most Popular Movies</string>
+    <string name="title_highest_rated_movies">Highest Rated Movies</string>
+    <string name="title_favorite_movies">My Favorite Movies</string>
 
+    <!-- Common -->
     <string name="movie_thumbnail">Movie Thumbnail</string>
     <string name="poster_description">Movie Poster</string>
     <string name="thumbnail_description">Movie Thumbnail</string>
@@ -13,14 +17,16 @@
     <string name="menu_sort">Sort</string>
     <string name="menu_view_favorites">My Favorites</string>
     <string name="sort_by">Sort By:</string>
-    <string name="sort_popularity">Sort by Popularity</string>
-    <string name="sort_rating">Sort by Rating</string>
+    <string name="sort_popularity">Popularity</string>
+    <string name="sort_rating">Rating</string>
     <string name="review_author">Review Author</string>
     <string name="review_text">Review Text</string>
     <string name="view_full_review">View Full Review</string>
 
+    <!-- User Feedback -->
     <string name="toast_success">Success!</string>
     <string name="error">Error: Please try again later.</string>
     <string name="error_overview">No Overview Found.</string>
     <string name="error_release_date">N/A</string>
+    <string name="error_no_favorite_movies">Error: No Favorites Found!</string>
 </resources>

@@ -10,6 +10,12 @@ import java.util.List;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.Video;
 
+/**
+ * An AsyncTask which queries themoviedb.org API for the list of videos
+ * for a particular movie.
+ * <p/>
+ * Needs movie id as input.
+ */
 public class VideosFetcher extends AsyncTask<Integer, Void, List<Video>> {
     public static final String TAG = VideosFetcher.class.getSimpleName();
 
@@ -44,7 +50,6 @@ public class VideosFetcher extends AsyncTask<Integer, Void, List<Video>> {
      * The interface used for returning the the selected movie from the AsyncTask
      */
     public interface VideosFetcherListener {
-
         /**
          * Called when the AsyncTask is finished executing
          */

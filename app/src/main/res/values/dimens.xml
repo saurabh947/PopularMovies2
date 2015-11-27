@@ -7,8 +7,8 @@
     <dimen name="movie_name_align">48dp</dimen>
     <dimen name="movie_detail_height">70dp</dimen>
     <dimen name="border_padding">1dp</dimen>
+    <dimen name="card_view_margin">12dp</dimen>
 
     <dimen name="movie_name_size">25sp</dimen>
     <dimen name="movie_detail_text_size">20sp</dimen>
-    <dimen name="card_view_margin">12dp</dimen>
 </resources>

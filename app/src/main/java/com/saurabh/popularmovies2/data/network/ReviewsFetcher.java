@@ -11,6 +11,12 @@ import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbReviews;
 import info.movito.themoviedbapi.model.Reviews;
 
+/**
+ * An AsyncTask which queries themoviedb.org API for the list of reviews
+ * for a particular movie.
+ * <p/>
+ * Needs movie id as input.
+ */
 public class ReviewsFetcher extends AsyncTask<Integer, Void, List<Reviews>> {
     public static final String TAG = ReviewsFetcher.class.getSimpleName();
 
@@ -46,7 +52,6 @@ public class ReviewsFetcher extends AsyncTask<Integer, Void, List<Reviews>> {
      * The interface used for returning the the selected movie from the AsyncTask
      */
     public interface ReviewsFetcherListener {
-
         /**
          * Called when the AsyncTask is finished executing
          */

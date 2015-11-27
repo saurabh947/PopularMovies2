@@ -8,6 +8,12 @@ import com.saurabh.popularmovies2.constants.Keys;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.model.MovieDb;
 
+/**
+ * An AsyncTask which queries themoviedb.org API for the movie
+ * based on its id.
+ * <p/>
+ * Needs movie id as input.
+ */
 public class MovieFetcher extends AsyncTask<Integer, Void, MovieDb>{
     public static final String TAG = MovieFetcher.class.getSimpleName();
 
@@ -39,10 +45,9 @@ public class MovieFetcher extends AsyncTask<Integer, Void, MovieDb>{
     }
 
     /**
-     * The interface used for returning the the selected movie from the AsyncTask
+     * The interface used for returning the the result from the AsyncTask
      */
     public interface MovieFetcherListener {
-
         /**
          * Called when the AsyncTask is finished executing
          */

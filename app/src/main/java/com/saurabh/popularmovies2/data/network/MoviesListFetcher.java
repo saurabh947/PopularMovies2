@@ -19,6 +19,8 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
 /**
  * An AsyncTask which queries themoviedb.org API for the list of movies
  * based on a particular sort order.
+ *
+ * Needs sorting criteria as input.
  */
 public class MoviesListFetcher extends AsyncTask<String, Void, List<MovieDb>> {
     private static final String TAG = MoviesListFetcher.class.getSimpleName();
@@ -61,10 +63,9 @@ public class MoviesListFetcher extends AsyncTask<String, Void, List<MovieDb>> {
     }
 
     /**
-     * The interface used for returning the list of movies from the AsyncTask
+     * The interface used for returning the result from the AsyncTask
      */
     public interface MoviesListFetcherListener {
-
         /**
          * Called when the AsyncTask is finished executing
          */

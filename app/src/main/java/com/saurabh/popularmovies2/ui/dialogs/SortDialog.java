@@ -10,6 +10,9 @@ import android.support.v7.app.AlertDialog;
 import com.saurabh.popularmovies2.R;
 import com.saurabh.popularmovies2.constants.Constants;
 
+/**
+ * A {@link DialogFragment} for showing the movie sorting options to the user.
+ */
 public class SortDialog extends DialogFragment {
     public static final String TAG = SortDialog.class.getSimpleName();
 
@@ -44,7 +47,15 @@ public class SortDialog extends DialogFragment {
         }
     }
 
+    /**
+     * The interface used for returning the the result from the dialog.
+     */
     public interface SortDialogListener {
+        /**
+         * Called when a sorting criteria is clicked.
+         *
+         * @param sortCriteria The clicked criteria.
+         */
         void onSortCriteriaClicked(String sortCriteria);
     }
 }

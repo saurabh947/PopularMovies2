@@ -17,6 +17,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import info.movito.themoviedbapi.model.Reviews;
 
+/**
+ * An Adapter responsible for managing the {@link Reviews} and
+ * displaying it in {@link com.saurabh.popularmovies2.ui.activities.MovieDetailsActivity}.
+ */
 public class MovieReviewsAdapter extends RecyclerView.Adapter<MovieReviewsAdapter.ViewHolder> {
 
     private Context mContext;

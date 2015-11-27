@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+/**
+ * A content provider which maintains a table for user's favorite movies.
+ */
 public class MovieProvider extends ContentProvider {
 
     private static final UriMatcher mUriMatcher = buildUriMatcher();
@@ -16,10 +19,10 @@ public class MovieProvider extends ContentProvider {
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        final String authority = ProviderDbHelper.CONTENT_AUTHORITY;
+        final String authority = ProviderSqlHelper.CONTENT_AUTHORITY;
 
-        matcher.addURI(authority, ProviderDbHelper.TABLE_MOVIE, ProviderDbHelper.CODE_MOVIE);
-        matcher.addURI(authority, ProviderDbHelper.TABLE_MOVIE + "/#", ProviderDbHelper.CODE_MOVIE_WITH_ID);
+        matcher.addURI(authority, ProviderSqlHelper.TABLE_MOVIE, ProviderSqlHelper.CODE_MOVIE);
+        matcher.addURI(authority, ProviderSqlHelper.TABLE_MOVIE + "/#", ProviderSqlHelper.CODE_MOVIE_WITH_ID);
 
         return matcher;
     }
@@ -36,11 +39,11 @@ public class MovieProvider extends ContentProvider {
         final int match = mUriMatcher.match(uri);
 
         switch (match) {
-            case ProviderDbHelper.CODE_MOVIE:
-                return ProviderDbHelper.CONTENT_DIR_TYPE;
+            case ProviderSqlHelper.CODE_MOVIE:
+                return ProviderSqlHelper.CONTENT_DIR_TYPE;
 
-            case ProviderDbHelper.CODE_MOVIE_WITH_ID:
-                return ProviderDbHelper.CONTENT_ITEM_TYPE;
+            case ProviderSqlHelper.CODE_MOVIE_WITH_ID:
+                return ProviderSqlHelper.CONTENT_ITEM_TYPE;
 
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -51,7 +54,7 @@ public class MovieProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         return mMovieSqlDb.getReadableDatabase().query(
-                ProviderDbHelper.TABLE_MOVIE,
+                ProviderSqlHelper.TABLE_MOVIE,
                 projection,
                 selection,
                 selectionArgs,
@@ -66,10 +69,10 @@ public class MovieProvider extends ContentProvider {
         final SQLiteDatabase db = mMovieSqlDb.getWritableDatabase();
         Uri returnUri;
 
-        long _id = db.insert(ProviderDbHelper.TABLE_MOVIE, null, values);
+        long _id = db.insert(ProviderSqlHelper.TABLE_MOVIE, null, values);
 
         if (_id > 0) {
-            returnUri = ProviderDbHelper.buildMoviesUri(_id);
+            returnUri = ProviderSqlHelper.buildMoviesUri(_id);
         } else {
             throw new android.database.SQLException("Failed to insert row into: " + uri);
         }
@@ -87,7 +90,7 @@ public class MovieProvider extends ContentProvider {
             throw new IllegalArgumentException("Cannot have null content values");
         }
 
-        numUpdated = db.update(ProviderDbHelper.TABLE_MOVIE, values, selection, selectionArgs);
+        numUpdated = db.update(ProviderSqlHelper.TABLE_MOVIE, values, selection, selectionArgs);
 
         if (numUpdated > 0) {
             getContext().getContentResolver().notifyChange(uri, null);
@@ -100,7 +103,7 @@ public class MovieProvider extends ContentProvider {
         final SQLiteDatabase db = mMovieSqlDb.getWritableDatabase();
         int numDeleted;
 
-        numDeleted = db.delete(ProviderDbHelper.TABLE_MOVIE, selection, selectionArgs);
+        numDeleted = db.delete(ProviderSqlHelper.TABLE_MOVIE, selection, selectionArgs);
         return numDeleted;
     }
 }

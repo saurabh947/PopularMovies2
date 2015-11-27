@@ -104,7 +104,7 @@
                         android:layout_height="2dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:background="@color/light_teal"/>
+                        android:background="@color/deep_orange"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -128,8 +128,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:contentDescription="Adult Icon"
-                            android:src="@drawable/ic_adult"
-                            android:visibility="invisible"/>
+                            android:src="@drawable/ic_adult"/>
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -190,7 +189,7 @@
                         android:layout_height="2dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:background="@color/light_teal"/>
+                        android:background="@color/deep_orange"/>
 
                     <TextView
                         android:id="@+id/movie_synopsis_text"
@@ -230,7 +229,7 @@
                         android:layout_height="2dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:background="@color/light_teal"/>
+                        android:background="@color/deep_orange"/>
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -279,7 +278,7 @@
                         android:layout_height="2dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:background="@color/light_teal"/>
+                        android:background="@color/deep_orange"/>
 
                     <FrameLayout
                         android:layout_width="match_parent"
