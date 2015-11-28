@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.saurabh.popularmovies2.R;
 import com.saurabh.popularmovies2.constants.Constants;
+import com.saurabh.popularmovies2.ui.activities.MovieGridFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -24,7 +25,7 @@ import info.movito.themoviedbapi.model.MovieDb;
 
 /**
  * An Adapter responsible for managing the {@link MovieDb} and
- * displaying it in {@link com.saurabh.popularmovies2.ui.activities.MovieGridActivity}.
+ * displaying it in {@link MovieGridFragment}.
  */
 public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.ViewHolder> {
 

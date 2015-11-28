@@ -14,16 +14,12 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.saurabh.popularmovies2.ui.activities.MovieGridActivity">
+            android:name=".ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity
-            android:name="com.saurabh.popularmovies2.ui.activities.MovieDetailsActivity"
-            android:parentActivityName=".ui.activities.MovieGridActivity"/>
 
         <provider
             android:name=".data.provider.MovieProvider"

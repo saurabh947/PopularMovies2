@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.saurabh.popularmovies2.R;
+import com.saurabh.popularmovies2.ui.activities.MovieDetailsFragment;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import info.movito.themoviedbapi.model.Reviews;
 
 /**
  * An Adapter responsible for managing the {@link Reviews} and
- * displaying it in {@link com.saurabh.popularmovies2.ui.activities.MovieDetailsActivity}.
+ * displaying it in {@link MovieDetailsFragment}.
  */
 public class MovieReviewsAdapter extends RecyclerView.Adapter<MovieReviewsAdapter.ViewHolder> {
 

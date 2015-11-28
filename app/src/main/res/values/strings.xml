@@ -14,11 +14,9 @@
     <string name="placeholder_release_date">January 1, 1970</string>
     <string name="placeholder_rating">9.5</string>
     <string name="movie_adult_icon">Movie Adult Icon</string>
-    <string name="menu_sort">Sort</string>
     <string name="menu_view_favorites">My Favorites</string>
-    <string name="sort_by">Sort By:</string>
-    <string name="sort_popularity">Popularity</string>
-    <string name="sort_rating">Rating</string>
+    <string name="sort_popularity">Sort by Popularity</string>
+    <string name="sort_rating">Sort by Rating</string>
     <string name="review_author">Review Author</string>
     <string name="review_text">Review Text</string>
     <string name="view_full_review">View Full Review</string>
