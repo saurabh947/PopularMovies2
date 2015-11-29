@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="@dimen/common_padding_small">
 
     <TextView
         android:id="@+id/movie_trailer_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Trailer"
         android:drawableLeft="@drawable/ic_play"
-        android:drawablePadding="8dp"
+        android:drawablePadding="@dimen/common_padding_small"
         android:gravity="center_vertical"
+        android:text="@string/trailers"
         android:textSize="@dimen/movie_detail_text_size"/>
 </LinearLayout>

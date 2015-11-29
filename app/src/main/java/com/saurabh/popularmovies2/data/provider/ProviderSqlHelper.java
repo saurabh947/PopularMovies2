@@ -13,11 +13,15 @@ public class ProviderSqlHelper {
     // region DB & Table Constants
 
     public static final String DB_NAME = "movies.db";
-    public static final int DB_VERSION = 3;
+    public static final int DB_VERSION = 4;
     public static final String TABLE_MOVIE = "movie";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_MOVIE_ID = "movie_id";
-    public static final String COLUMN_MOVIE_NAME = "movie_name";
+    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_RELEASE_DATE = "release_date";
+    public static final String COLUMN_RATING = "rating";
+    public static final String COLUMN_RUNTIME = "runtime";
+    public static final String COLUMN_OVERVIEW = "overview";
     public static final String COLUMN_IS_FAVORITE = "is_favorite";
 
     // endregion

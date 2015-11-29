@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -24,25 +24,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="12dp"
-            card_view:cardCornerRadius="4dp"
-            card_view:contentPadding="8dp">
+            android:layout_margin="@dimen/card_view_margin"
+            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+            card_view:contentPadding="@dimen/common_padding_small">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="8dp">
+                android:padding="@dimen/common_padding_small">
 
                 <TextView
                     android:id="@+id/movie_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginRight="50dp"
+                    android:layout_marginRight="@dimen/movie_name_right_margin"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="@string/movie_name"
+                    android:text="@string/placeholder_movie_name"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/movie_name_size"/>
 
@@ -52,7 +52,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:background="@android:color/transparent"
-                    android:contentDescription="Favourites"
+                    android:contentDescription="@string/favorites_description"
                     android:src="@drawable/favourite_icon_selector"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -65,8 +65,8 @@
             android:layout_marginBottom="@dimen/card_view_margin"
             android:layout_marginLeft="@dimen/card_view_margin"
             android:layout_marginRight="@dimen/card_view_margin"
-            card_view:cardCornerRadius="4dp"
-            card_view:contentPadding="8dp">
+            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+            card_view:contentPadding="@dimen/common_padding_small">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,21 +77,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Details"
+                    android:text="@string/details"
                     android:textAppearance="?android:attr/textAppearanceLarge"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_height="@dimen/divider_height"
+                    android:layout_marginLeft="@dimen/common_padding_small"
+                    android:layout_marginRight="@dimen/common_padding_small"
                     android:background="@color/deep_orange"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="8dp">
+                    android:padding="@dimen/common_padding_small">
 
                     <TextView
                         android:id="@+id/movie_release_date"
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:drawableLeft="@drawable/ic_release"
-                        android:drawablePadding="4dp"
+                        android:drawablePadding="@dimen/drawable_padding"
                         android:text="@string/placeholder_release_date"
                         android:textSize="@dimen/movie_detail_text_size"/>
 
@@ -108,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:contentDescription="Adult Icon"
+                        android:contentDescription="@string/adult_icon_description"
                         android:src="@drawable/ic_adult"/>
                 </RelativeLayout>
 
@@ -116,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="8dp">
+                    android:padding="@dimen/common_padding_small">
 
                     <TextView
                         android:id="@+id/movie_rating"
@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:drawableLeft="@drawable/ic_rating"
-                        android:drawablePadding="4dp"
+                        android:drawablePadding="@dimen/drawable_padding"
                         android:text="@string/placeholder_rating"
                         android:textSize="@dimen/movie_detail_text_size"/>
 
@@ -134,8 +134,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:drawableLeft="@drawable/ic_runtime"
-                        android:drawablePadding="4dp"
-                        android:text="112 min"
+                        android:drawablePadding="@dimen/drawable_padding"
+                        android:text="@string/placeholder_runtime"
                         android:textSize="@dimen/movie_detail_text_size"
                         android:textStyle="italic"/>
                 </RelativeLayout>
@@ -150,8 +150,8 @@
             android:layout_marginBottom="@dimen/card_view_margin"
             android:layout_marginLeft="@dimen/card_view_margin"
             android:layout_marginRight="@dimen/card_view_margin"
-            card_view:cardCornerRadius="4dp"
-            card_view:contentPadding="8dp">
+            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+            card_view:contentPadding="@dimen/common_padding_small">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -167,9 +167,9 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_height="@dimen/divider_height"
+                    android:layout_marginLeft="@dimen/common_padding_small"
+                    android:layout_marginRight="@dimen/common_padding_small"
                     android:background="@color/deep_orange"/>
 
                 <TextView
@@ -177,8 +177,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:padding="8dp"
-                    android:text="New Text"/>
+                    android:padding="@dimen/common_padding_small"
+                    android:text="@string/synopsis"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -190,8 +190,8 @@
             android:layout_marginBottom="@dimen/card_view_margin"
             android:layout_marginLeft="@dimen/card_view_margin"
             android:layout_marginRight="@dimen/card_view_margin"
-            card_view:cardCornerRadius="4dp"
-            card_view:contentPadding="8dp">
+            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+            card_view:contentPadding="@dimen/common_padding_small">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -202,14 +202,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Trailers"
+                    android:text="@string/trailers"
                     android:textAppearance="?android:attr/textAppearanceLarge"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_height="@dimen/divider_height"
+                    android:layout_marginLeft="@dimen/common_padding_small"
+                    android:layout_marginRight="@dimen/common_padding_small"
                     android:background="@color/deep_orange"/>
 
                 <FrameLayout
@@ -239,8 +239,8 @@
             android:layout_marginBottom="@dimen/card_view_margin"
             android:layout_marginLeft="@dimen/card_view_margin"
             android:layout_marginRight="@dimen/card_view_margin"
-            card_view:cardCornerRadius="4dp"
-            card_view:contentPadding="8dp">
+            card_view:cardCornerRadius="@dimen/cardview_default_radius"
+            card_view:contentPadding="@dimen/common_padding_small">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -251,14 +251,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Reviews"
+                    android:text="@string/reviews"
                     android:textAppearance="?android:attr/textAppearanceLarge"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_height="@dimen/divider_height"
+                    android:layout_marginLeft="@dimen/common_padding_small"
+                    android:layout_marginRight="@dimen/common_padding_small"
                     android:background="@color/deep_orange"/>
 
                 <FrameLayout
@@ -280,4 +280,4 @@
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

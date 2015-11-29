@@ -1,6 +1,6 @@
 <resources>
-    <!-- Title -->
-    <string name="app_name">PopularMovies</string>
+    <!-- App Wide -->
+    <string name="app_name">Popular Movies</string>
     <string name="title_popular_movies">Most Popular Movies</string>
     <string name="title_highest_rated_movies">Highest Rated Movies</string>
     <string name="title_favorite_movies">My Favorite Movies</string>
@@ -9,17 +9,24 @@
     <string name="movie_thumbnail">Movie Thumbnail</string>
     <string name="poster_description">Movie Poster</string>
     <string name="thumbnail_description">Movie Thumbnail</string>
-    <string name="movie_name">Movie Name</string>
     <string name="synopsis">Plot</string>
+    <string name="details">Details</string>
+    <string name="reviews">Reviews</string>
+    <string name="trailers">Trailers</string>
+    <string name="placeholder_movie_name">Movie Name</string>
     <string name="placeholder_release_date">January 1, 1970</string>
     <string name="placeholder_rating">9.5</string>
+    <string name="placeholder_runtime">112 min</string>
+    <string name="favorites_description">Favorites Icon</string>
     <string name="movie_adult_icon">Movie Adult Icon</string>
+    <string name="adult_icon_description">Adult Icon</string>
     <string name="menu_view_favorites">My Favorites</string>
     <string name="sort_popularity">Sort by Popularity</string>
     <string name="sort_rating">Sort by Rating</string>
     <string name="review_author">Review Author</string>
     <string name="review_text">Review Text</string>
     <string name="view_full_review">View Full Review</string>
+    <string name="favorites_shown">favorites</string>
 
     <!-- User Feedback -->
     <string name="toast_success">Success!</string>

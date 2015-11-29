@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.saurabh.popularmovies2.R;
-import com.saurabh.popularmovies2.ui.activities.MovieDetailsFragment;
+import com.saurabh.popularmovies2.ui.fragments.MovieDetailsFragment;
 
 import java.util.List;
 

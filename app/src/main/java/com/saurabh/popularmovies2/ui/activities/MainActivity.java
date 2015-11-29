@@ -2,53 +2,34 @@ package com.saurabh.popularmovies2.ui.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 
 import com.saurabh.popularmovies2.R;
+import com.saurabh.popularmovies2.ui.fragments.MovieDetailsFragment;
+import com.saurabh.popularmovies2.ui.fragments.MovieGridFragment;
 
-public class MainActivity extends AppCompatActivity {
-    private ActionBar mActionBar;
+public class MainActivity extends AppCompatActivity implements MovieGridFragment.MovieGridFragmentCallbacks {
+
+    private float mScreenWidthInDp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mActionBar = getSupportActionBar();
 
-        MovieGridFragment movieGridFragment = MovieGridFragment.newInstance(
-                new MovieGridFragment.MovieGridFragmentCallbacks() {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        mScreenWidthInDp = displayMetrics.widthPixels / displayMetrics.density;
 
-                    /**
-                     * Called when a movie is clicked in the grid;
-                     * navigates to {@link MovieDetailsFragment}
-                     *
-                     * @param movieId The movie id of the clicked grid item.
-                     */
-                    @Override
-                    public void onGridItemClick(int movieId) {
-                        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-                        float screenWidthInDp = displayMetrics.widthPixels / displayMetrics.density;
+        if (savedInstanceState == null) {
+            MovieGridFragment movieGridFragment = MovieGridFragment.newInstance(this);
 
-                        MovieDetailsFragment movieDetailsFragment = MovieDetailsFragment.newInstance(movieId);
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-                        if (screenWidthInDp >= 600) {
-                            transaction.replace(R.id.movie_detail_container, movieDetailsFragment, MovieDetailsFragment.TAG);
-                            transaction.commit();
-                        } else {
-                            transaction.replace(R.id.movie_grid_container, movieDetailsFragment, MovieDetailsFragment.TAG);
-                            transaction.addToBackStack(null);
-                            transaction.commit();
-                        }
-                    }
-                });
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.movie_grid_container, movieGridFragment, MovieGridFragment.TAG);
-        transaction.commit();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.movie_grid_container, movieGridFragment, MovieGridFragment.TAG);
+            transaction.commit();
+        }
     }
 
     @Override
@@ -56,5 +37,26 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.movie_grid_activity_menu, menu);
         return true;
+    }
+
+    /**
+     * Called when a movie is clicked in the {@link MovieGridFragment};
+     * navigates to {@link MovieDetailsFragment}
+     *
+     * @param movieId The movie id of the clicked grid item.
+     */
+    @Override
+    public void onGridItemClick(int movieId) {
+        MovieDetailsFragment movieDetailsFragment = MovieDetailsFragment.newInstance(movieId);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if (mScreenWidthInDp >= 600) {
+            transaction.replace(R.id.movie_detail_container, movieDetailsFragment, MovieDetailsFragment.TAG);
+            transaction.commitAllowingStateLoss();
+        } else {
+            transaction.replace(R.id.movie_grid_container, movieDetailsFragment, MovieDetailsFragment.TAG);
+            transaction.addToBackStack(MovieGridFragment.TAG);
+            transaction.commitAllowingStateLoss();
+        }
     }
 }

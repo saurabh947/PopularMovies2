@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 import com.saurabh.popularmovies2.R;
 import com.saurabh.popularmovies2.constants.Constants;
-import com.saurabh.popularmovies2.ui.activities.MovieGridFragment;
+import com.saurabh.popularmovies2.ui.fragments.MovieGridFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
