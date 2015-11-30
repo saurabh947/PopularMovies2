@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuInflater;
 
+import com.facebook.stetho.Stetho;
 import com.saurabh.popularmovies2.R;
 import com.saurabh.popularmovies2.ui.fragments.MovieDetailsFragment;
 import com.saurabh.popularmovies2.ui.fragments.MovieGridFragment;
@@ -20,6 +19,8 @@ public class MainActivity extends AppCompatActivity implements MovieGridFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Stetho.initializeWithDefaults(this);
+
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         mScreenWidthInDp = displayMetrics.widthPixels / displayMetrics.density;
 
@@ -28,15 +29,9 @@ public class MainActivity extends AppCompatActivity implements MovieGridFragment
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.movie_grid_container, movieGridFragment, MovieGridFragment.TAG);
+            transaction.addToBackStack(null);
             transaction.commit();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.movie_grid_activity_menu, menu);
-        return true;
     }
 
     /**
@@ -55,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements MovieGridFragment
             transaction.commitAllowingStateLoss();
         } else {
             transaction.replace(R.id.movie_grid_container, movieDetailsFragment, MovieDetailsFragment.TAG);
-            transaction.addToBackStack(MovieGridFragment.TAG);
+            transaction.addToBackStack(null);
             transaction.commitAllowingStateLoss();
         }
     }

@@ -31,7 +31,7 @@
         android:layout_margin="@dimen/common_padding_small"
         android:text="@string/view_full_review"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/deep_orange"
+        android:textColor="@color/cyan"
         android:textStyle="italic"/>
 
     <View

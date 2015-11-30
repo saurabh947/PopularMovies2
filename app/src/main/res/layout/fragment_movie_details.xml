@@ -85,7 +85,7 @@
                     android:layout_height="@dimen/divider_height"
                     android:layout_marginLeft="@dimen/common_padding_small"
                     android:layout_marginRight="@dimen/common_padding_small"
-                    android:background="@color/deep_orange"/>
+                    android:background="@color/cyan"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -170,7 +170,7 @@
                     android:layout_height="@dimen/divider_height"
                     android:layout_marginLeft="@dimen/common_padding_small"
                     android:layout_marginRight="@dimen/common_padding_small"
-                    android:background="@color/deep_orange"/>
+                    android:background="@color/cyan"/>
 
                 <TextView
                     android:id="@+id/movie_synopsis_text"
@@ -210,7 +210,7 @@
                     android:layout_height="@dimen/divider_height"
                     android:layout_marginLeft="@dimen/common_padding_small"
                     android:layout_marginRight="@dimen/common_padding_small"
-                    android:background="@color/deep_orange"/>
+                    android:background="@color/cyan"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -259,7 +259,7 @@
                     android:layout_height="@dimen/divider_height"
                     android:layout_marginLeft="@dimen/common_padding_small"
                     android:layout_marginRight="@dimen/common_padding_small"
-                    android:background="@color/deep_orange"/>
+                    android:background="@color/cyan"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"

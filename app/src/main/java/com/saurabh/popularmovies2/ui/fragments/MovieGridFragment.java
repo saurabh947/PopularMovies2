@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +47,7 @@ public class MovieGridFragment extends Fragment implements MoviesListFetcher.Mov
     public static final String TAG = MovieGridFragment.class.getSimpleName();
 
     @Bind(R.id.progress_bar) ProgressBar progressBar;
-    @Bind(R.id.movie_grid)
-    RecyclerView movieGrid;
+    @Bind(R.id.movie_grid) RecyclerView movieGrid;
 
     private ActionBar mActionBar;
     private int counter = 0;
@@ -63,6 +64,12 @@ public class MovieGridFragment extends Fragment implements MoviesListFetcher.Mov
         MovieGridFragment fragment = new MovieGridFragment();
         fragment.mCallbacks = callbacks;
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -97,12 +104,6 @@ public class MovieGridFragment extends Fragment implements MoviesListFetcher.Mov
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
@@ -113,6 +114,12 @@ public class MovieGridFragment extends Fragment implements MoviesListFetcher.Mov
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.movie_grid_fragment_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -159,9 +166,6 @@ public class MovieGridFragment extends Fragment implements MoviesListFetcher.Mov
      */
     private void populateGridWithFavorites(boolean showFavorites) {
         if (showFavorites) {
-            mActionBar.setTitle(R.string.title_favorite_movies);
-            progressBar.setVisibility(View.VISIBLE);
-
             String selection = "is_favorite = ?";
             String[] selectionArgs = {"true"};
 
@@ -176,6 +180,9 @@ public class MovieGridFragment extends Fragment implements MoviesListFetcher.Mov
                 cursor.close();
 
             } else if (cursor != null) {
+                mActionBar.setTitle(R.string.title_favorite_movies);
+                progressBar.setVisibility(View.VISIBLE);
+
                 mFavoriteMoviesCount = cursor.getCount();
                 cursor.moveToFirst();
                 for (int i = 0; i < cursor.getCount(); i++) {
@@ -218,7 +225,7 @@ public class MovieGridFragment extends Fragment implements MoviesListFetcher.Mov
             }
         });
         movieGrid.setAdapter(adapter);
-        getFragmentManager().executePendingTransactions();
+//        getFragmentManager().executePendingTransactions();
     }
 
     /**

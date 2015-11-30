@@ -8,21 +8,17 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +39,6 @@ import com.saurabh.popularmovies2.data.network.VideosFetcher;
 import com.saurabh.popularmovies2.data.provider.ProviderSqlHelper;
 import com.saurabh.popularmovies2.ui.adapters.MovieReviewsAdapter;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +58,7 @@ public class MovieDetailsFragment extends Fragment implements MovieFetcher.Movie
 
     @Bind(R.id.movie_poster) ImageView moviePoster;
     @Bind(R.id.movie_name) TextView movieName;
-    @Bind(R.id.movie_favourite_icon)
-    ImageButton movieFavorite;
+    @Bind(R.id.movie_favourite_icon) ImageButton movieFavorite;
     @Bind(R.id.movie_release_date) TextView movieReleaseDate;
     @Bind(R.id.movie_rating) TextView movieRating;
     @Bind(R.id.movie_runtime) TextView movieRuntime;
@@ -73,44 +67,12 @@ public class MovieDetailsFragment extends Fragment implements MovieFetcher.Movie
     @Bind(R.id.movie_trailer_progress) ProgressBar movieTrailerProgressBar;
     @Bind(R.id.movie_trailer_list) ListView movieTrailerList;
     @Bind(R.id.movie_reviews_progress) ProgressBar movieReviewsProgressBar;
-    @Bind(R.id.movie_reviews_list)
-    RecyclerView movieReviewsList;
+    @Bind(R.id.movie_reviews_list) RecyclerView movieReviewsList;
 
     private ActionBar mActionBar;
-    /**
-     * Fires the Palette class after loading the image from
-     * the network.
-     */
-    Target target = new Target() {
-        @Override
-        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-            moviePoster.setImageBitmap(bitmap);
-
-            /**
-             * Sets the actionbar and status bar colors by getting the muted colors from
-             * the movie poster.
-             * If not found, sets them to default colors.
-             */
-            Palette palette = Palette.from(bitmap).generate();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getActivity().getWindow().setStatusBarColor(palette.getDarkMutedColor(
-                        getResources().getColor(R.color.colorPrimaryDark)));
-                mActionBar.setBackgroundDrawable(new ColorDrawable(palette.getMutedColor(
-                        getResources().getColor(R.color.colorPrimary))));
-            }
-        }
-
-        @Override
-        public void onBitmapFailed(Drawable errorDrawable) {
-            moviePoster.setImageDrawable(errorDrawable);
-        }
-
-        @Override
-        public void onPrepareLoad(Drawable placeHolderDrawable) {
-        }
-    };
     private int mMovieId;
     private boolean mIsMovieAFavorite;
+    private String mFirstVideoUrl;
 
     public MovieDetailsFragment() {
         setRetainInstance(true);
@@ -124,6 +86,12 @@ public class MovieDetailsFragment extends Fragment implements MovieFetcher.Movie
         fragment.setArguments(bundle);
 
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -151,10 +119,16 @@ public class MovieDetailsFragment extends Fragment implements MovieFetcher.Movie
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.movie_detail_fragment_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(getActivity());
+            case R.id.share:
+                shareVideo();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -168,6 +142,21 @@ public class MovieDetailsFragment extends Fragment implements MovieFetcher.Movie
             MovieFetcher movieFetcher = new MovieFetcher(this);
             movieFetcher.execute(mMovieId);
 
+        }
+    }
+
+    /**
+     * Shares the video URL of the movie shown; if present.
+     */
+    private void shareVideo() {
+        if (mFirstVideoUrl == null) {
+            Toast.makeText(getContext(), R.string.error_no_videos, Toast.LENGTH_LONG).show();
+        } else {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, Constants.YOUTUBE_URL + mFirstVideoUrl);
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
         }
     }
 
@@ -187,7 +176,7 @@ public class MovieDetailsFragment extends Fragment implements MovieFetcher.Movie
                     .load(Uri.withAppendedPath(Constants.POSTER_URL, response.getBackdropPath()))
                     .placeholder(R.drawable.ic_placeholder)
                     .error(R.drawable.ic_error)
-                    .into(target);
+                    .into(moviePoster);
 
             movieName.setText(response.getOriginalTitle());
 
@@ -239,6 +228,10 @@ public class MovieDetailsFragment extends Fragment implements MovieFetcher.Movie
         movieTrailerProgressBar.setVisibility(View.INVISIBLE);
 
         if (response != null) {
+            if (response.size() != 0) {
+                mFirstVideoUrl = response.get(0).getKey();
+            }
+
             ArrayList<String> trailerNames = new ArrayList<>();
             for (int i = 0; i < response.size(); i++) {
                 trailerNames.add(response.get(i).getName());
@@ -350,10 +343,10 @@ public class MovieDetailsFragment extends Fragment implements MovieFetcher.Movie
         ContentValues values = new ContentValues();
         values.put(ProviderSqlHelper.COLUMN_MOVIE_ID, movie.getId());
         values.put(ProviderSqlHelper.COLUMN_NAME, movie.getOriginalTitle());
-        values.put(ProviderSqlHelper.COLUMN_RELEASE_DATE, movie.getReleaseDate());
-        values.put(ProviderSqlHelper.COLUMN_RATING, movie.getVoteAverage());
-        values.put(ProviderSqlHelper.COLUMN_RUNTIME, movie.getRuntime());
         values.put(ProviderSqlHelper.COLUMN_OVERVIEW, movie.getOverview());
+        values.put(ProviderSqlHelper.COLUMN_RELEASE_DATE, movie.getReleaseDate());
+        values.put(ProviderSqlHelper.COLUMN_RUNTIME, String.valueOf(movie.getRuntime()));
+        values.put(ProviderSqlHelper.COLUMN_RATING, String.valueOf(movie.getVoteAverage()));
 
         getContext().getContentResolver().insert(ProviderSqlHelper.CONTENT_URI, values);
     }

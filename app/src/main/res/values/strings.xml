@@ -21,6 +21,7 @@
     <string name="movie_adult_icon">Movie Adult Icon</string>
     <string name="adult_icon_description">Adult Icon</string>
     <string name="menu_view_favorites">My Favorites</string>
+    <string name="menu_share_video">Share video</string>
     <string name="sort_popularity">Sort by Popularity</string>
     <string name="sort_rating">Sort by Rating</string>
     <string name="review_author">Review Author</string>
@@ -34,4 +35,5 @@
     <string name="error_overview">No Overview Found.</string>
     <string name="error_release_date">N/A</string>
     <string name="error_no_favorite_movies">Error: No Favorites Found!</string>
+    <string name="error_no_videos">Error: No videos found!</string>
 </resources>

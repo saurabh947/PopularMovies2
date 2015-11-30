@@ -13,7 +13,7 @@ public class ProviderSqlHelper {
     // region DB & Table Constants
 
     public static final String DB_NAME = "movies.db";
-    public static final int DB_VERSION = 4;
+    public static final int DB_VERSION = 5;
     public static final String TABLE_MOVIE = "movie";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_MOVIE_ID = "movie_id";

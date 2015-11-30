@@ -21,10 +21,10 @@ public class MovieSqlDb extends SQLiteOpenHelper {
                 ProviderSqlHelper.TABLE_MOVIE + "(" +
                 ProviderSqlHelper.COLUMN_MOVIE_ID + " INTEGER NOT NULL, " +
                 ProviderSqlHelper.COLUMN_NAME + " TEXT NOT NULL, " +
-                ProviderSqlHelper.COLUMN_OVERVIEW + " TEXT " +
-                ProviderSqlHelper.COLUMN_RELEASE_DATE + " TEXT " +
-                ProviderSqlHelper.COLUMN_RUNTIME + " TEXT " +
-                ProviderSqlHelper.COLUMN_RATING + " TEXT " +
+                ProviderSqlHelper.COLUMN_OVERVIEW + " TEXT, " +
+                ProviderSqlHelper.COLUMN_RELEASE_DATE + " TEXT, " +
+                ProviderSqlHelper.COLUMN_RUNTIME + " TEXT, " +
+                ProviderSqlHelper.COLUMN_RATING + " TEXT, " +
                 ProviderSqlHelper.COLUMN_IS_FAVORITE + " TEXT DEFAULT 'false');";
 
         db.execSQL(SQL_CREATE_MOVIE_TABLE);
