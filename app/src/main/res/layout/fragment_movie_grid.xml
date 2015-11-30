@@ -17,9 +17,10 @@
                 android:layout_gravity="center"
                 android:visibility="invisible"/>
 
-            <android.support.v7.widget.RecyclerView
+            <com.saurabh.popularmovies2.ui.helpers.AutofitRecyclerView
                 android:id="@+id/movie_grid"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:columnWidth="@dimen/grid_item_width"/>
         </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

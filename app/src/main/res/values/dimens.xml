@@ -9,6 +9,7 @@
     <dimen name="border_padding">1dp</dimen>
     <dimen name="drawable_padding">4dp</dimen>
     <dimen name="divider_height">2dp</dimen>
+    <dimen name="grid_item_width">150dp</dimen>
 
     <dimen name="card_view_margin">12dp</dimen>
 

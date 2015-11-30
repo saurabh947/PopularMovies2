@@ -1,3 +1,7 @@
+/**
+ * Copyright (C) 2015 Saurabh Agrawal
+ */
+
 package com.saurabh.popularmovies2.ui.activities;
 
 import android.os.Bundle;

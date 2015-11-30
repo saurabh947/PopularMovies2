@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -214,8 +213,6 @@ public class MovieGridFragment extends Fragment implements MoviesListFetcher.Mov
         Toast.makeText(getContext(), R.string.toast_success, Toast.LENGTH_SHORT).show();
 
         MoviesGridAdapter adapter = new MoviesGridAdapter(getContext(), movies);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        movieGrid.setLayoutManager(layoutManager);
         movieGrid.setHasFixedSize(true);
 
         adapter.setOnItemClickListener(new MoviesGridAdapter.OnItemClickListener() {
