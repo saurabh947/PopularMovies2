@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements MovieGridFragment
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.movie_grid_container, movieGridFragment, MovieGridFragment.TAG);
-            transaction.addToBackStack(null);
             transaction.commit();
         }
     }

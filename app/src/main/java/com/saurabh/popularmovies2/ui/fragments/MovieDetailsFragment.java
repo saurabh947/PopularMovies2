@@ -239,6 +239,7 @@ public class MovieDetailsFragment extends Fragment implements MovieFetcher.Movie
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                     R.layout.movie_trailer_item, R.id.movie_trailer_name, trailerNames);
+            movieTrailerList.getLayoutParams().height = 150 * response.size();
             movieTrailerList.setAdapter(adapter);
 
             movieTrailerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -279,9 +280,7 @@ public class MovieDetailsFragment extends Fragment implements MovieFetcher.Movie
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
             movieReviewsList.setLayoutManager(layoutManager);
             movieReviewsList.setHasFixedSize(true);
-
-            movieReviewsList.getLayoutParams().height = 460 * response.size();
-
+            movieReviewsList.getLayoutParams().height = 350 * response.size();
             movieReviewsList.setAdapter(adapter);
         } else {
             Toast.makeText(getContext(), R.string.error, Toast.LENGTH_LONG).show();

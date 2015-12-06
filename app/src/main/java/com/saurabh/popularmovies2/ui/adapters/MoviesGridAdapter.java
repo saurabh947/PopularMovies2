@@ -72,8 +72,7 @@ public class MoviesGridAdapter extends RecyclerView.Adapter<MoviesGridAdapter.Vi
      * ViewHolder for storing the view references
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.grid_movie_poster)
-        ImageView moviePoster;
+        @Bind(R.id.grid_movie_poster) ImageView moviePoster;
 
         public ViewHolder(View view) {
             super(view);

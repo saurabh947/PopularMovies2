@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="4"
+        android:maxLines="2"
         android:text="@string/review_text"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 

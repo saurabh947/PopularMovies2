@@ -222,12 +222,11 @@ public class MovieGridFragment extends Fragment implements MoviesListFetcher.Mov
             }
         });
         movieGrid.setAdapter(adapter);
-//        getFragmentManager().executePendingTransactions();
     }
 
     /**
      * Called each time a movie is fetched from the network,
-     * used for displaying the user's favorite movies.
+     * used for fetching user's favorite movies from the network.
      */
     @Override
     public void onMovieResponse(MovieDb response) {

@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_play"
         android:drawablePadding="@dimen/common_padding_small"
+        android:ellipsize="end"
         android:gravity="center_vertical"
+        android:singleLine="true"
         android:text="@string/trailers"
         android:textSize="@dimen/movie_detail_text_size"/>
 </LinearLayout>
