@@ -5,6 +5,16 @@
 This is an Android Application developed by me (Saurabh Agrawal), as an 
 academic requirement for the Udacity's Android Developer NanoDegree Program.
 
+## What is this App about?
+
+- This app displays a list of currently running popular movies in a grid view. 
+- The list can be changed from the "Overflow Menu" to display highest rated movies too.
+- Opon clicking a movie poster, the app navigates to the details screen where the movie details are displayed.
+- Any movie can be favorited in the app, which then is stored into a local database.
+- All the movie details which are favorited can be accessed by other apps using the shared content URI.
+- The app also displays a list of movies which are favorited by selecting the same in the overflow menu.
+- The user can share the first trailer and can also view all the trailers as desired.
+
 The project uses <a href="https://github.com/holgerbrandl/themoviedbapi">TheMovieDb API</a>, a
 a java-wrapper around the JSON API provided by TMdB, which is an open database for movie and film content.
 
